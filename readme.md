@@ -1,2 +1,2 @@
-<h1>Blogger</h1>
-<p>Social Media</p>
+<h1>NReddit Blogger</h1>
+<p>Social Media meetup</p>
