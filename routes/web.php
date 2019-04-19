@@ -64,5 +64,11 @@ Route::group(['middleware'=>'user'],function () {
     Route::get('event/details/{x?}', 'eventController@event_details');
 
 
+    Route::get('/contactUs',function(){
+        return view('contact_us');
+    });
+
+    Route::post('/send/contactUs','contactusController@send_contactUs');
+
 });
 
