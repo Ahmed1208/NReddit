@@ -57,11 +57,9 @@ class groupUserController extends Controller
         $data->save();
 
 
-        $counter1=Groupuser::where('id',$id)->where('type','follow')->count();
-        $counter2=Groupuser::where('id',$id)->where('type','join')->count();
         $data2=Group::where('id',$data->group_id)->first();
-        $data2->followers_number = $counter1;
-        $data2->users_number = $counter2;
+        $data2->followers_number = $data2->followers_number-1;
+        $data2->users_number = $data2->users_number +1;
         $data2->save();
 
 
@@ -75,8 +73,8 @@ class groupUserController extends Controller
             $data = Groupuser::find($id);
             $data->delete();
 
-        $counter1=Groupuser::where('id',$id)->where('type','follow')->count();
-        $counter2=Groupuser::where('id',$id)->where('type','join')->count();
+        $counter1=Groupuser::where('group_id',$data->group_id)->where('type','follow')->count();
+        $counter2=Groupuser::where('group_id',$data->group_id)->where('type','join')->count();
         $data2=Group::where('id',$data->group_id)->first();
         $data2->followers_number = $counter1;
         $data2->users_number = $counter2;
