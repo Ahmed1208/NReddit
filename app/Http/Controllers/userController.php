@@ -15,16 +15,25 @@ class userController extends Controller
 
         $data_of_user = auth()->user();
 
-        $number_of_groups = $data_of_user->mygroups->pluck('group_id') ; // first we got lines from groupusers by function 'mygroups'
+        $number_of_groups = $data_of_user->mygroups->where('type','join')->pluck('group_id') ; // first we got lines from groupusers by function 'mygroups'
                                                                          // as one user hasMany lines in groupusers.
                                                                          //then we got specific column 'group_id
 
-        $data_of_groups=Group::whereIn('id',$number_of_groups)->paginate(4);  //selected lines from groups table (array)
+        $data_of_groups=Group::whereIn('id',$number_of_groups)->orderby('created_at','desc')->paginate(4);  //selected lines from groups table (array)
 
-        $x=['group'=>$data_of_groups];
+
+        $number_of_groups_following = $data_of_user->mygroups->where('type','follow')->pluck('group_id') ; // first we got lines from groupusers by function 'mygroups'
+        // as one user hasMany lines in groupusers.
+        //then we got specific column 'group_id
+
+        $data_of_groups_following=Group::whereIn('id',$number_of_groups_following)->orderby('created_at','desc')->paginate(4);  //selected lines from groups ta
+
+
+        $x=['group'=>$data_of_groups,'group_following'=>$data_of_groups_following];
 
         return view('user_page',$x);
     }
+
 
 
 

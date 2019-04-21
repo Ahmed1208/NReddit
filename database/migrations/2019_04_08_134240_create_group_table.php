@@ -22,6 +22,7 @@ class CreateGroupTable extends Migration
             $table->string('image')->default('user.jpg');
             $table->timestamps();
             $table->bigInteger('users_number');
+            $table->bigInteger('followers_number');
         });
     }
 

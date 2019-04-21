@@ -22,7 +22,8 @@
                                 <p>
                                     {{$data->description}}
                                 </p>
-                                   Users: {{$data->users_number}}
+                                   Members: {{$data->users_number}}<br>
+                                   Followers: {{$data->followers_number}}
                             </div>
                             <br>
                         @endforeach

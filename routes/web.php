@@ -33,8 +33,9 @@ Route::group(['middleware'=>'user'],function () {
 
     Route::get('/group/community/{x?}', 'groupController@group_community');
 
-    Route::post('group/joinUser/{x?}', 'groupUserController@group_joinUser');   //No interface
     Route::get('group/joinUser/{x?}', 'groupUserController@group_joinUser');   //No interface
+    Route::post('group/joinUser/{x?}', 'groupUserController@group_joinUser');   //No interface
+    Route::post('group/followUser/{x?}', 'groupUserController@group_followUser');   //No interface
 
     Route::get('/user/profile', 'userController@show_mygroups');
 
@@ -64,6 +65,11 @@ Route::group(['middleware'=>'user'],function () {
     Route::get('event/details/{x?}', 'eventController@event_details');
 
 
+    Route::post('/group/switchToMember/{x?}','groupUserController@switchToMember');
+
+
+    Route::delete('/group/unFollow/{x?}','groupUserController@unFollow');
+    Route::delete('/group/unUser/{x?}','groupUserController@unFollow');
 
 
 });

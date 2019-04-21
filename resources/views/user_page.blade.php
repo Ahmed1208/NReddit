@@ -48,7 +48,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">My Groups</div>
+                    <div class="card-header">My Groups Membership</div>
 
                     <div class="card-body">
 
@@ -59,7 +59,8 @@
                                     <br>
                                     <strong>Group Name: <a href="{{url('/group/community/'.$data->id)}}">{{$data->type}}{{$data->groupname}}</a> </strong>
                                     <br>
-                                    Users: {{$data->users_number}}
+                                    Members: {{$data->users_number}}<br>
+                                    Followers: {{$data->followers_number}}
                                 </div>
                                 <br>
                             @endforeach
@@ -68,10 +69,39 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
+    </div>
+
+    <br><br>
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">My Groups Following</div>
+
+                    <div class="card-body">
+
+
+                        @foreach($group_following as $data)
+                            <div style="background-color: lightblue;">
+                                <img class="rounded-circle" width="120" src="/uploads/groups/{{$data->image}}" style="vertical-align:middle"/>
+                                <br>
+                                <strong>Group Name: <a href="{{url('/group/community/'.$data->id)}}">{{$data->type}}{{$data->groupname}}</a> </strong>
+                                <br>
+                                Members: {{$data->users_number}}<br>
+                                Followers: {{$data->followers_number}}
+                            </div>
+                            <br>
+                        @endforeach
+                        {{$group_following->links()}}
+
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
 
 

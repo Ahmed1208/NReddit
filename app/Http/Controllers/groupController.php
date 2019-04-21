@@ -23,10 +23,10 @@ class groupController extends Controller
 
             $count=Group::all()->count();
             if($count > 0) {
-                $latest = Group::all()->last()->id;    //make it comment for first time only to make a group
-                $bvb = $latest + 1;                      //make it comment for first time only to make a group
+                $latest = Group::all()->last()->id;
+                $bvb = $latest + 1;
             }else {
-                $bvb=1;        // write this first time only to make a group then make it comment
+                $bvb=1;
             }
             $ext = request()->file('image')->getClientOriginalExtension();
             $photoname =$bvb.'_'. time() . '.' . $ext;
@@ -39,7 +39,7 @@ class groupController extends Controller
             $data1['groupname']='/'.request('groupname');
 
             $data1['users_number']=0;
-
+            $data1['followers_number']=0;
             Group::create($data1);
 
             return redirect ('group/joinUser/'.$bvb);
@@ -64,6 +64,7 @@ class groupController extends Controller
             $join_button_checker1 =Groupuser::where('user_id',auth()->user()->id)->where('group_id',$id)->count();
             //this line check if user have joined the group before or no by counting
 
+            $groupUser_data =Groupuser::where('user_id',auth()->user()->id)->where('group_id',$id)->get();
 
             $comment1=Group::where('id',$id)->first();
 
@@ -93,7 +94,7 @@ class groupController extends Controller
             $event1=$comment1->events;
             $event_checker=$comment1->events->count();
 
-            $x=['details'=>$data,'joinchecker1'=>$join_button_checker1,'comments'=>$comment2,'comment_maker'=>$comment_maker,'comment_checker'=>$comment_checker,
+            $x=['details'=>$data,'groupUser'=>$groupUser_data,'joinchecker1'=>$join_button_checker1,'comments'=>$comment2,'comment_maker'=>$comment_maker,'comment_checker'=>$comment_checker,
                 'question_checker'=>$question_checker,'question'=>$question1,'event'=>$event1,'event_checker'=>$event_checker];
 
 

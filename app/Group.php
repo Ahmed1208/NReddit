@@ -9,7 +9,7 @@ use App\Event;
 class Group extends Model
 {
     //
-    protected $fillable=['groupname','description','type','image','creator_id','users_number'];
+    protected $fillable=['groupname','description','type','image','creator_id','users_number','followers_number'];
 
 
     public function comments(){
