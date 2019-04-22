@@ -28,7 +28,7 @@ class eventController extends Controller
                    [
                        // 'color' => '#f05050',
                         'url' => '/event/details/'.$value->id,
-                         //$value->room,
+
                     ]
                 );
             }
@@ -36,11 +36,11 @@ class eventController extends Controller
 
         $calendar = Calendar::addEvents($events);
 
-        $data=Event::orderby('created_at','desc')->paginate(2);
+        $data=Event::where('start_date', '>', \Carbon\Carbon::now() )->orderby('start_date','asc')->paginate(2);
 
         $counter=Event::all()->count();
 
-        $x=['calendar'=>$calendar,'events'=>$data,'counter'=>$counter];
+        $x=['calendar'=>$calendar,'upcoming_events'=>$data,'counter'=>$counter];
 
         return view('event_calender', $x);
 

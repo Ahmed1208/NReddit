@@ -71,6 +71,7 @@ Route::group(['middleware'=>'user'],function () {
     Route::delete('/group/unFollow/{x?}','groupUserController@unFollow');
     Route::delete('/group/unUser/{x?}','groupUserController@unFollow');
 
+    Route::get('/lesson/create','lessonController@newLesson');
 
 });
 

@@ -115,15 +115,16 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Events</div>
+                    <div class="card-header">Upcoming Events</div>
 
                     <div class="card-body">
 
                         @if($counter > 0)
 
-                        @foreach($events as $data)
-                            <div style="background-color: lightblue;">
+                        @foreach($upcoming_events as $data)
+                                @if($data->start_date > \Carbon\Carbon::now())
 
+                            <div style="background-color: lightblue;">
 
                                 <strong>Event Name: <a href="{{url('/event/details/'.$data->id)}}">{{$data->event_name}}</a> </strong>
                                 <br>
@@ -135,9 +136,13 @@
                                 <br><br>
                             </div>
                             <br>
+
+                            @endif
                         @endforeach
 
-                        {{ $events->links() }}
+
+
+                        {{ $upcoming_events->links() }}
 
                         @endif
 
