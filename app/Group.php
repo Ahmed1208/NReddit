@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Comment;
 use App\Question;
 use App\Event;
+use App\Groupuser;
 class Group extends Model
 {
     //
@@ -23,5 +24,11 @@ class Group extends Model
     public function events()
     {
         return $this->hasMany('App\Event', 'group_id_event')->orderBy('created_at', 'desc');
+    }
+
+    public function groupusers($id){
+        $data = Groupuser::where('group_id',$id)->where('user_id',auth()->user()->id)->first();
+        return $data;
+
     }
 }

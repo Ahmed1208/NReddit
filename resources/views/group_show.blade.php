@@ -24,6 +24,15 @@
                                 </p>
                                    Members: {{$data->users_number}}<br>
                                    Followers: {{$data->followers_number}}
+                                <br>
+
+
+                               @if( $data->groupusers($data->id)['type'] == 'join')
+                                <strong>Member</strong>
+                               @elseif($data->groupusers($data->id)['type'] == 'follow')
+                                   <strong>Following</strong>
+                               @endif
+
                             </div>
                             <br>
                         @endforeach
