@@ -47,8 +47,6 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
 
-
-
                         @if(auth()->check())
 
                         <li class="nav-item dropdown">
@@ -64,9 +62,15 @@
 
                                 @if(auth()->user()->unreadNotifications->count())
                                     @foreach(auth()->user()->unreadNotifications as $x)
-                                <a class="dropdown-item" href="{{url('/group/community/1')}}">
-                                            {{$x->data['lesson']['title']}}
-                                </a>
+                             {{--  <a class="dropdown-item" href="{{url('/group/community/'.$x->data['group'])}}">--}}
+
+
+                                        <a class="dropdown-item" href="{{url('/comment/Read/'.$x->id.'/'.$x->data['group'])}}">
+                                  {{$x->data['name']}}<span> commented on your post</span>
+
+
+
+                               </a>
                                     @endforeach
                                 @else
                                 <a class="dropdown-item" href="#">No Notification</a>
@@ -76,8 +80,9 @@
                             </div>
                         </li>
 
-                        @endif
 
+
+                        @endif
 
 
                         <!-- Authentication Links -->

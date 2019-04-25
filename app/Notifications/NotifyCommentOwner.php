@@ -6,20 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Comment;
 
-class NewLessonNotification extends Notification
+class NotifyCommentOwner extends Notification
 {
     use Queueable;
 
-    //protected $lesson;
+    protected $comment;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($lesson)
+    public function __construct($comment)
     {
-       // $this->lesson=$lesson;
+        $this->comment = $comment;
     }
 
     /**
@@ -30,7 +31,7 @@ class NewLessonNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','broadcast'];
     }
 
 
@@ -43,14 +44,18 @@ class NewLessonNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-      //      'lesson'=>$this->lesson,
+            'comment'=>$this->comment,
+            'name' =>auth()->user()->name ,
+            'group'=>Comment::find($this->comment->comment_id)->group_id_comment,
         ];
     }
 
-    //public function toBroadcast($notifiable)
-    //{
-     //   return [
-       //     'lesson'=>$this->lesson,
-       // ];
-    //}
+    public function toBroadcast($notifiable)
+    {
+        return [
+            'comment'=>$this->comment,
+            'name' =>auth()->user()->name ,
+            'group'=>Comment::find($this->comment->comment_id)->group_id_comment,
+        ];
+    }
 }

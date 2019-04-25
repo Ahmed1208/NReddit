@@ -180,12 +180,19 @@
 
                                 {{$x->comment}}<br>
                                replied at: {{$x->created_at}}<br>
+
+
+                                @foreach($x->userComment($x->user_id_comment) as $zz)
+                                    replied by:  {{$zz->name}}
+                                    @endforeach
+
+                                {{--
                                 @foreach($comment_maker as $y)
 
                                 replied by:    {{$y->name}}
 
                                     @endforeach
-
+--}}
 
                                 {{--    /////////////////////Showing Comments on Comment in Discussion/////////////////////////--}}
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\formSubmit;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,8 +74,27 @@ Route::group(['middleware'=>'user'],function () {
 
     Route::get('/lesson/create','lessonController@newLesson');
 
+
+    Route::get('/comment/Read/{x?}/{z?}','notificationController@readmark');
+
+
+    Route::get('/counter',function(){
+        return view ('counter');
+    });
+
+    Route::get('/send',function (){
+        return view('sender');
+    });
+
+    Route::post('/send',function (){
+        $text=request('text');
+        event(new formSubmit($text));
+    });
+
 });
 
+
+////////////////////////////////////////////global Routing
 Route::get('/contactUs',function(){
     return view('contact_us');
 });

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\NotifyCommentOwner;
+use App\User;
 use Illuminate\Http\Request;
 use App\Comment;
 use App\Secondcomment;
-
+use App\Notification;
 class commentController extends Controller
 {
     //
@@ -34,6 +36,11 @@ class commentController extends Controller
         $data['user_id_second_comment']=auth()->user()->id;
 
         SecondComment::create($data);
+
+        $secondComment=SecondComment::all()->last();
+        $comment = Comment::find($id);
+        User::find($comment->user_id_comment)->notify(new NotifyCommentOwner($secondComment));
+
 
         return back();
 

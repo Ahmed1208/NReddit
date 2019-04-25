@@ -15,5 +15,10 @@ class Comment extends Model
         return $this->hasMany('App\Secondcomment','comment_id')->orderBy('created_at','desc');
     }
 
+    public function userComment($id){
+        $data = User::where('id',$id)->get();
+        return $data;
+
+    }
 
 }
