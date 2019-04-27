@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Comment;
 use App\Secondcomment;
 use App\Notification;
+use App\Events\Noti;
+
 class commentController extends Controller
 {
     //
@@ -41,11 +43,20 @@ class commentController extends Controller
         $comment = Comment::find($id);
         User::find($comment->user_id_comment)->notify(new NotifyCommentOwner($secondComment));
 
+        event(new Noti($secondComment));
+
 
         return back();
 
     }
 
 
+    public function commentShow($id){
+
+        $data= Comment::where('id',$id)->get();
+        $x=['comment'=>$data];
+
+        return view('comment_post',$x);
+    }
 
 }

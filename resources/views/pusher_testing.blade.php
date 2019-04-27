@@ -9,13 +9,13 @@
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
-        var pusher = new Pusher('89f31246f6fa6730b3ec', {
+        var pusher = new Pusher('ce22c7cd664d93e27230', {
             cluster: 'mt1',
             forceTLS: true
         });
 
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('form_submit', function(data) {
+        var channel = pusher.subscribe('noti');
+        channel.bind('testing', function(data) {
             alert(JSON.stringify(data));
         });
     </script>

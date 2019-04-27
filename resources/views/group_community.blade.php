@@ -175,11 +175,13 @@
 
 
                         @foreach($comments as $x)   {{-- $comments carry lines of comments of this group from comments table --}}
+                         <a href="{{url('/showing/comment/post/'.$x->id)}}">
                             <div>
 
 
                                 {{$x->comment}}<br>
                                replied at: {{$x->created_at}}<br>
+
 
 
                                 @foreach($x->userComment($x->user_id_comment) as $zz)
@@ -209,6 +211,7 @@
                                     @endforeach
 
                             </div>
+                         </a>
                             <br><br><br>
 
                             @endforeach
@@ -217,6 +220,7 @@
                             @endif
 
                     </div>
+
                 </div>
             </div>
         </div>

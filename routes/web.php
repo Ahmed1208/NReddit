@@ -77,20 +77,16 @@ Route::group(['middleware'=>'user'],function () {
 
     Route::get('/comment/Read/{x?}/{z?}','notificationController@readmark');
 
+    Route::get('/showing/comment/post/{x?}','commentController@commentShow');
 
-    Route::get('/counter',function(){
-        return view ('counter');
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Route::get('/pusher/test',function(){
+        return view ('pusher_testing');
     });
 
-    Route::get('/send',function (){
-        return view('sender');
-    });
-
-    Route::post('/send',function (){
-        $text=request('text');
-        event(new formSubmit($text));
-    });
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 });
 
 
