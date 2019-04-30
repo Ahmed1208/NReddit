@@ -230,7 +230,8 @@
     @endforeach
 
 
-
+    @foreach($groupUser as $y)  {{--//////// check if a joined member or follower--}}
+    @if($y->type == 'follow' || $y->type == 'join')
 
 
 
@@ -245,104 +246,102 @@
 
                         {{-- /////////////////////Showing Questions from Non members/////////////////////////--}}
 
-                        @foreach($groupUser as $y)  {{--//////// check if a joined member or follower--}}
-                        @if($y->type == 'follow')
+@if($y->type == 'follow')
 
-                        @foreach($details as $x)  {{-- $details-->carry line of this group from groups table --}}
-                        {!! Form::open(['url'=>'/add/question/'.$x->id]) !!}
-                        {!! Form::textarea('question',old('question'),['placeholder'=>'Have A Question?','cols'=>80,'rows'=>1]) !!}
-                        {!! Form::submit('Add') !!}
-                        {!! Form::close() !!}
-                        @endforeach
-
-
-                        @endif
-                        @endforeach
-
-                        <br>
-
-                        {{--   /////////////////////Showing Replies from Members/////////////////////////--}}
-
-                        @if($question_checker == 1)
-                            @foreach($question as $x)
-                           Question: {{$x->question}}   <br>
-                           Time:{{$x->created_at}}<br>
-                           user: {{$x->user($x->user_id_question)->name}}<br>
-
-                                @foreach($groupUser as $y)  {{--//////// check if a joined member or follower--}}
-                                @if($y->type == 'join')
-
-                                    {!! Form::open(['url'=>'/add/question/answer/'.$x->id]) !!}
-                                    {!! Form::textarea('answer',old('answer'),['placeholder'=>'Answer request','cols'=>60,'rows'=>1]) !!}
-                                    {!! Form::submit('answer') !!}
-                                    {!! Form::close() !!}
-
-                                    @endif
-                                    @endforeach
-
-                                    <br><br>
-                                    @foreach($x->answers as $z)   {{-- ($x->answer) function of hasMany to get answers belong to one question --}}
-
-                                    {{$z->answer}}<br>
-                                    By:{{$z->user($z->user_id_answer)->name}}<br>
-
-                                    @endforeach
+                       @foreach($details as $x)  {{-- $details-->carry line of this group from groups table --}}
+                       {!! Form::open(['url'=>'/add/question/'.$x->id]) !!}
+                       {!! Form::textarea('question',old('question'),['placeholder'=>'Have A Question?','cols'=>80,'rows'=>1]) !!}
+                       {!! Form::submit('Add') !!}
+                       {!! Form::close() !!}
+                       @endforeach
+@endif
 
 
-                            @endforeach
-                        @endif
+                       <br>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                       {{--   /////////////////////Showing Replies from Members/////////////////////////--}}
+
+                       @if($question_checker == 1)
+                           @foreach($question as $x)
+                          Question: {{$x->question}}   <br>
+                          Time:{{$x->created_at}}<br>
+                          user: {{$x->user($x->user_id_question)->name}}<br>
+
+                               @if($y->type == 'join')
+
+                                   {!! Form::open(['url'=>'/add/question/answer/'.$x->id]) !!}
+                                   {!! Form::textarea('answer',old('answer'),['placeholder'=>'Answer request','cols'=>60,'rows'=>1]) !!}
+                                   {!! Form::submit('answer') !!}
+                                   {!! Form::close() !!}
+
+                                @endif
 
 
+                                   <br><br>
+                                   @foreach($x->answers as $z)   {{-- ($x->answer) function of hasMany to get answers belong to one question --}}
 
-    <br><br>
+                                   {{$z->answer}}<br>
+                                   By:{{$z->user($z->user_id_answer)->name}}<br>
+
+                                   @endforeach
 
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Events</div>
+                           @endforeach
+                       @endif
 
-                    <div class="card-body">
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
 
-                        {{--/////////////////////Showing All Events of this Group/////////////////////////--}}
 
-                        @if($event_checker > 1)
+   @endif
+   @endforeach
 
-                        @foreach($event as $x)
-                            <div>
-        <p>
-                        <strong>Event Name: <a href="{{url('/event/details/'.$x->id)}}">{{$x->event_name}}</a> </strong>
-            <br><br>
-                                 Room:{{$x->room}}
-            <br>
-            Starting at : {{$x->start_date}}
-            <br>
-            Ending at : {{$x->end_date}}
-            <br>
-                                 Creator 1: {{$x->creator_1}}
-            <br>
-                                 Creator 2: {{$x->creator_3}}
-            <br>
-                                Creator 3: {{$x->creator_3}}
-            <br>
-        </p>
-                            </div>
-                            @endforeach
+   <br><br>
 
-                        @endif
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   <div class="container">
+       <div class="row justify-content-center">
+           <div class="col-md-8">
+               <div class="card">
+                   <div class="card-header">Events</div>
+
+                   <div class="card-body">
+
+                       {{--/////////////////////Showing All Events of this Group/////////////////////////--}}
+
+                       @if($event_checker > 1)
+
+                       @foreach($event as $x)
+                           <div>
+       <p>
+                       <strong>Event Name: <a href="{{url('/event/details/'.$x->id)}}">{{$x->event_name}}</a> </strong>
+           <br><br>
+                                Room:{{$x->room}}
+           <br>
+           Starting at : {{$x->start_date}}
+           <br>
+           Ending at : {{$x->end_date}}
+           <br>
+                                Creator 1: {{$x->creator_1}}
+           <br>
+                                Creator 2: {{$x->creator_3}}
+           <br>
+                               Creator 3: {{$x->creator_3}}
+           <br>
+       </p>
+                           </div>
+                           @endforeach
+
+                       @endif
+
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
 
 
 
