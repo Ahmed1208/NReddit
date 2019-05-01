@@ -33,7 +33,7 @@ class NotifyCommentOwner extends Notification
      */
     public function via($notifiable)
     {
-        return ['database',/*'broadcast'*/];
+        return ['database','broadcast'];
     }
 
 
@@ -51,15 +51,15 @@ class NotifyCommentOwner extends Notification
             'group'=>Comment::find($this->comment->comment_id)->group_id_comment,
         ];
     }
-/*
+
     public function toBroadcast($notifiable)
     {
-        return ([
+        return [
             'data'=>[
             'comment'=>$this->comment,
             'name' =>auth()->user()->name ,
             'group'=>Comment::find($this->comment->comment_id)->group_id_comment,
-        ]]);
+        ]];
     }
-*/
+
 }

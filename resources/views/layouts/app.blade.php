@@ -3,9 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="userId" content="{{ Auth::check() ? Auth::user()->id : '' }}">
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     {{-- <title>{{ config('app.name', 'Laravel') }}</title>--}}
     <title>Reddit</title>
@@ -48,6 +51,10 @@
                     <ul class="navbar-nav ml-auto">
 
                         @if(auth()->check())
+                            <notification v-bind:notifications="notifications"></notification>
+                        @endif
+
+                    @if(auth()->check())
 
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"

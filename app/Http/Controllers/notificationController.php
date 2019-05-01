@@ -18,4 +18,9 @@ class notificationController extends Controller
             return redirect('/group/community/'.$x);
 
         }
+
+    public function get() {
+        $notification = auth()->user()->unreadNotifications;
+        return $notification;
+    }
 }

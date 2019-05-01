@@ -43,7 +43,7 @@ class commentController extends Controller
         $comment = Comment::find($id);
         User::find($comment->user_id_comment)->notify(new NotifyCommentOwner($secondComment));
 
-        event(new Noti($secondComment));
+//        event(new Noti($secondComment));   //////this command relates to 'app->Events->Noti.php' , Not used yet
 
 
         return back();

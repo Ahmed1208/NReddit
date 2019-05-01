@@ -86,6 +86,9 @@ Route::group(['middleware'=>'user'],function () {
         return view ('pusher_testing');
     });
 
+
+    Route::post('/notification/get', 'NotificationController@get');
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 });
 

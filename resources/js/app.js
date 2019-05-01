@@ -6,6 +6,8 @@
  */
 
 require('./bootstrap');
+import Vue from 'vue';
+window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -13,8 +15,24 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+import Notification from './components/Notification.vue';
+Vue.component('notification', Notification);
+
+//Vue.component('notification', require('./components/Notification.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        notifications: ''
+    },
+    created() {
+        axios.post('/notification/get').then(response => {
+            this.notifications = response.data;
+        });
+
+        var userId = $('meta[name="userId"]').attr('content');
+        Echo.private('App.User.' + userId).notification((notification) => {
+            this.notifications.push(notification);
+        });
+    }
 });
