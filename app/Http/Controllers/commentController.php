@@ -41,7 +41,11 @@ class commentController extends Controller
 
         $secondComment=SecondComment::all()->last();
         $comment = Comment::find($id);
-        User::find($comment->user_id_comment)->notify(new NotifyCommentOwner($secondComment));
+
+        if(auth()->user()->id != User::find($comment->user_id_comment)->id)
+        {
+            User::find($comment->user_id_comment)->notify(new NotifyCommentOwner($secondComment));
+        }
 
 //        event(new Noti($secondComment));   //////this command relates to 'app->Events->Noti.php' , Not used yet
 
