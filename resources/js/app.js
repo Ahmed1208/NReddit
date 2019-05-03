@@ -18,6 +18,9 @@ window.Vue = require('vue');
 import Notification from './components/Notification.vue';
 Vue.component('notification', Notification);
 
+import Addcomment from './components/Addcomment.vue';
+Vue.component('add-comment', Addcomment);
+
 //Vue.component('notification', require('./components/Notification.vue'));
 
 const app = new Vue({

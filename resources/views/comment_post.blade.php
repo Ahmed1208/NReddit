@@ -23,6 +23,8 @@
                         {!! Form::submit('reply') !!}
                         {!! Form::close() !!}
 
+                        <add-comment post-id="{{$x->id}}"></add-comment>
+
                         @foreach($x->second_comment as $z)   {{-- ($x->second_comment) function of hasMany to get comments belong to one comment --}}
 
                         {{$z->second_comment}}<br>

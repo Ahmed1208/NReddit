@@ -63,4 +63,27 @@ class commentController extends Controller
         return view('comment_post',$x);
     }
 
+
+
+    public function second_comment_vue($id){
+
+        $data=$this->validate(request(),[
+            'second_comment'=>'required'
+        ]);
+
+        $data['comment_id']=$id;
+        $data['user_id_second_comment']=auth()->user()->id;
+
+        SecondComment::create($data);
+
+        $secondComment=SecondComment::all()->last();
+        $comment = Comment::find($id);
+
+        if(auth()->user()->id != User::find($comment->user_id_comment)->id)
+        {
+            User::find($comment->user_id_comment)->notify(new NotifyCommentOwner($secondComment));
+        }
+    }
+
+
 }
