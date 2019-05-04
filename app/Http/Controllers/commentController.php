@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewComment;
 use App\Notifications\NotifyCommentOwner;
 use App\User;
 use Illuminate\Http\Request;
@@ -83,6 +84,23 @@ class commentController extends Controller
         {
             User::find($comment->user_id_comment)->notify(new NotifyCommentOwner($secondComment));
         }
+
+        broadcast(new NewComment($secondComment));
+    }
+
+    public function show_comments_vue($id){
+        $get_comments=Secondcomment::where('comment_id',$id)->orderBy('created_at','desc')->get();
+        $comments=[];
+        foreach ($get_comments as $comment){
+           //$comments[] =$comment->user($comment->user_id_second_comment).$comment;
+            $data = User::where('id',$comment->user_id_second_comment)->select('name')->first();
+            $comments[] = array_merge($comment->toArray(), $data->toArray());
+
+
+        }
+
+        return $comments;
+
     }
 
 

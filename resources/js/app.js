@@ -8,7 +8,7 @@
 require('./bootstrap');
 import Vue from 'vue';
 window.Vue = require('vue');
-
+window.Event = new Vue();
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -20,6 +20,10 @@ Vue.component('notification', Notification);
 
 import Addcomment from './components/Addcomment.vue';
 Vue.component('add-comment', Addcomment);
+
+import Comment from './components/Comment.vue';
+Vue.component('comment-show', Comment);
+
 
 //Vue.component('notification', require('./components/Notification.vue'));
 
