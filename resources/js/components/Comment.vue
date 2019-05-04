@@ -27,16 +27,16 @@
                 this.comments = response.data;
             });
 
+            Echo.channel(`comments.${this.postId}`)
+                .listen('NewComment', (e) => {
+                 axios.get('/second/comment/vue/get/' + this.postId).then(response => {
+                 this.comments = response.data; });
+
             Event.$on('commentCreated',(second_comment) =>{
-                this.comments.unshift(second_comment);
 
-               // axios.get('/second/comment/vue/get/' + this.postId).then(response => {
-                 //   this.comments = response.data; });
-
-                Echo.channel(`comments.${this.postId}`)
-                    .listen('NewComment', (e) => {
-                            axios.get('/second/comment/vue/get/' + this.postId).then(response => {
-                            this.comments = response.data; });
+                //this.comments.unshift(second_comment);
+                //axios.get('/second/comment/vue/get/' + this.postId).then(response => {
+                //this.comments = response.data; });
 
                     });
             });

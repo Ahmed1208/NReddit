@@ -1834,15 +1834,13 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/second/comment/vue/get/' + this.postId).then(function (response) {
       _this.comments = response.data;
     });
-    Event.$on('commentCreated', function (second_comment) {
-      _this.comments.unshift(second_comment); // axios.get('/second/comment/vue/get/' + this.postId).then(response => {
-      //   this.comments = response.data; });
-
-
-      Echo.channel("comments.".concat(_this.postId)).listen('NewComment', function (e) {
-        axios.get('/second/comment/vue/get/' + _this.postId).then(function (response) {
-          _this.comments = response.data;
-        });
+    Echo.channel("comments.".concat(this.postId)).listen('NewComment', function (e) {
+      axios.get('/second/comment/vue/get/' + _this.postId).then(function (response) {
+        _this.comments = response.data;
+      });
+      Event.$on('commentCreated', function (second_comment) {//this.comments.unshift(second_comment);
+        //axios.get('/second/comment/vue/get/' + this.postId).then(response => {
+        //this.comments = response.data; });
       });
     });
   }
