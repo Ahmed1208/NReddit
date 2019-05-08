@@ -2,8 +2,6 @@
 
 namespace App\Events;
 
-use App\Comment;
-use App\Secondcomment;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -12,21 +10,21 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class NewComment implements shouldBroadcast
+class NewPost implements shouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public $secondComment;
+    public $comment;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($secondComment)
+    public function __construct($comment)
     {
-        $this->secondComment = $secondComment;
+        $this->comment = $comment;
     }
 
     /**
@@ -36,11 +34,6 @@ class NewComment implements shouldBroadcast
      */
     public function broadcastOn()
     {
-        $comment =Comment::where('id',$this->secondComment->comment_id)->first();
-
-        return [
-            new Channel('comments.' . $this->secondComment->comment_id),
-            new Channel('comments.' . $comment->group_id_comment),
-        ];
+        return new Channel('post.' . $this->comment->group_id_comment);
     }
 }

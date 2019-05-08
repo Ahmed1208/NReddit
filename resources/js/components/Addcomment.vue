@@ -23,7 +23,7 @@
                         return;
                     }
                     axios.post('/add/second/comment/vue/' + this.postId,{second_comment:this.message});
-                    Event.$emit('commentCreated',{second_comment:this.message});
+                    Event.$emit('send',this.postId);
 
                     this.message = '';
                 }

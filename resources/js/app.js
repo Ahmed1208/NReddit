@@ -24,6 +24,9 @@ Vue.component('add-comment', Addcomment);
 import Comment from './components/Comment.vue';
 Vue.component('comment-show', Comment);
 
+import Discussion from './components/Discussion.vue';
+Vue.component('discussion-show', Discussion);
+
 
 //Vue.component('notification', require('./components/Notification.vue'));
 

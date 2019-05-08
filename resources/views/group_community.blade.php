@@ -344,6 +344,30 @@
    </div>
 
 
+    {{--                                Discussion Vue                                                       --}}
+
+<br><br><br>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Discussion Vue</div>
+
+                    <div class="card-body">
+
+                        @foreach($details as $data)
+
+                        <discussion-show group-id="{{$data->id}}"></discussion-show>
+
+                        @endforeach
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 @endsection

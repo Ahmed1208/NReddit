@@ -12,7 +12,7 @@ class Comment extends Model
 
 
     public function second_comment(){
-        return $this->hasMany('App\Secondcomment','comment_id')->orderBy('created_at','desc');
+        return $this->hasMany('App\Secondcomment','comment_id')->orderBy('created_at','asc');
     }
 
     public function userComment($id){
